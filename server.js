@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./lib/db.js";
 import userRouter from "./routes/userRoutes.js";
+import messageRouter from "./routes/messageRoutes.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/api", (req, res) => {
 });
 
 app.use("/api/auth", userRouter);
+app.user("/api/messages", messageRouter);
 
 await connectDB();
 
