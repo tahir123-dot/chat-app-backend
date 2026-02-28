@@ -86,7 +86,18 @@ export const updateProfile = async (req, res) => {
         { new: true },
       );
     } else {
-      const upload = await cloudinary;
+      const upload = await cloudinary.uploader.upload(profilePic);
+
+      updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { profilePic: upload.secure_url, bio, fullName },
+        { new: true },
+      );
     }
-  } catch (error) {}
+
+    res.json({ success: true, user: updatedUser });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
 };

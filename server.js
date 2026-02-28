@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./lib/db.js";
+import userRouter from "./routes/userRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", (req, res) => {
   res.send("server is live");
 });
+
+app.use("/api/auth", userRouter);
 
 await connectDB();
 
