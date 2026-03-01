@@ -1,12 +1,12 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
 import cors from "cors";
 import { connectDB } from "./lib/db.js";
 import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoutes.js";
+import http from "http";
 import { Server } from "socket.io";
-
-dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
@@ -50,15 +50,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 
-app.use("/api", (req, res) => {
-  res.send("server is live");
-});
-
 app.use("/api/auth", userRouter);
-app.user("/api/messages", messageRouter);
+app.use("/api/messages", messageRouter);
 
 await connectDB();
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

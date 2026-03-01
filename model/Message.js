@@ -10,7 +10,7 @@ const messageSchema = new mongoose.Schema(
     receiverId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: ture,
+      required: true,
     },
     text: { type: String },
     image: { type: String },
